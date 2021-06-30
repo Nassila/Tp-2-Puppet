@@ -4,6 +4,8 @@
 set -e
 set -u
 
+HOSTNAME="$(hostname)"
+
 # J'utilise /etc/hosts pour associer les IP aux noms de domaines
 # sur mon réseau local, sur chacune des machines
 sed -i \
@@ -26,8 +28,10 @@ cat >> /etc/apt/apt.conf.d/99periodic-disable <<MARK
 APT::Periodic::Enable "0";
 MARK
 
-#Autorisez l'accès des autres serveurs sur CONTROL 
-puppet cert sign control
+#Autorisez l'accès des autres serveurs sur CONTROL
+if [ "$HOSTNAME" != "control" ]; then 
+    puppet cert sign control
+fi 
 
 echo "SUCCESS."
 
