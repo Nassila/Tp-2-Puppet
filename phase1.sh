@@ -115,12 +115,9 @@ else
 	# J'installe puppet dessus
 	apt-get install -y \
 		puppet
-
-	#installer le puppet-agent
-	apt-get update && apt-get intall puppet-agent
-
+	
 	#relancer le puppet agent
-	systemctl restart puppet-agent
+	systemctl restart puppet
 
     # configuration du puppet.conf
     sed -i \
@@ -139,5 +136,7 @@ cadir  = /var/lib/puppet/ssl/ca
 dns_alt_names = puppet   
 ## END PROVISION
 	MARK
+
+	puppet agent --test
 fi
 
