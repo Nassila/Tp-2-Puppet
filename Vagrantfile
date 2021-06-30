@@ -41,6 +41,7 @@ Vagrant.configure('2') do |config|
     end
   end
 
+  config.vm.provision 'shell', path: 'provision.sh'
   config.vm.provision 'shell', path: 'phase1.sh'
   config.vm.provision 'shell', path: 'phase2.sh'
 end
